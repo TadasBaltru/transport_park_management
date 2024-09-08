@@ -23,6 +23,9 @@ class Order
     #[ORM\ManyToOne(inversedBy: 'order_id')]
     private ?Trailer $trailer_id = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Order
     public function setTrailerId(?Trailer $trailer_id): static
     {
         $this->trailer_id = $trailer_id;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -16,7 +16,7 @@ class Truck
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $licenceNumber = null;
+    private ?string $licenseNumber = null;
 
     #[ORM\Column(length: 20)]
     private ?string $status = null;
@@ -41,14 +41,14 @@ class Truck
         return $this->id;
     }
 
-    public function getLicenceNumber(): ?string
+    public function getLicenseNumber(): ?string
     {
-        return $this->licenceNumber;
+        return $this->licenseNumber;
     }
 
-    public function setLicenceNumber(string $licenceNumber): static
+    public function setLicenseNumber(string $licenseNumber): static
     {
-        $this->licenceNumber = $licenceNumber;
+        $this->licenseNumber = $licenseNumber;
 
         return $this;
     }

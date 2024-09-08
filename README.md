@@ -1,3 +1,4 @@
 # transport_park_management
 
-To create container use command in terminal ,,docker-compose up -d" command to create container in your machine. After excecusion use command ,,symfony console doctrine:database:create" it creates database in your container if you wana see data tables go to http://localhost:8080/ server: mysql, username:root and password:root
+To create container use command in terminal ,,docker-compose up -d" command to create container in your machine. After excecusion use command ,,symfony console doctrine:database:create" it creates database in your container if you wana see data tables go to http://localhost:8080/ server: mysql, username:root and password:root. If you found empty database it means commands executed perfectly. Next step to migrate tables use ,,symfony console doctrine:migrations:migrate
+" this command creates database tables, after Warning text press enter, after it will create new tables
