@@ -15,22 +15,26 @@ class Truck
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 20)]
     private ?string $licenceNumber = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 20)]
     private ?string $status = null;
 
+    #[ORM\OneToOne(mappedBy: 'truck', cascade: ['persist', 'remove'])]
+    private ?Fleet $fleet_id = null;
+
     /**
-     * @var Collection<int, Fleet>
+     * @var Collection<int, Order>
      */
-    #[ORM\OneToOne(mappedBy: 'trailer', cascade: ['persist', 'remove'])]
-    private Collection $fleet;
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'truck_id')]
+    private Collection $order_id;
 
     public function __construct()
     {
-        $this->fleet = new ArrayCollection();
+        $this->order_id = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -85,6 +89,53 @@ class Truck
             // set the owning side to null (unless already changed)
             if ($fleet->getTruck() === $this) {
                 $fleet->setTruck(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFleetId(): ?Fleet
+    {
+        return $this->fleet_id;
+    }
+
+    public function setFleetId(Fleet $fleet_id): static
+    {
+        // set the owning side of the relation if necessary
+        if ($fleet_id->getTruck() !== $this) {
+            $fleet_id->setTruck($this);
+        }
+
+        $this->fleet_id = $fleet_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrderId(): Collection
+    {
+        return $this->order_id;
+    }
+
+    public function addOrderId(Order $orderId): static
+    {
+        if (!$this->order_id->contains($orderId)) {
+            $this->order_id->add($orderId);
+            $orderId->setTruckId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderId(Order $orderId): static
+    {
+        if ($this->order_id->removeElement($orderId)) {
+            // set the owning side to null (unless already changed)
+            if ($orderId->getTruckId() === $this) {
+                $orderId->setTruckId(null);
             }
         }
 
