@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
+use App\QueryTraits\RelationWithFleetTrait;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 class TruckController extends AbstractController
 {
+    use RelationWithFleetTrait;
     #[Route('/truck', name: 'app_truck')]
-    public function index(): JsonResponse
+    public function index(EntityManagerInterface $entityManager): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/TruckController.php',
-        ]);
+        return $this->SelectWithFleet($entityManager, 'App\Entity\Truck');
+
     }
 }

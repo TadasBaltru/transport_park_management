@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Fleet;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -9,11 +11,10 @@ use Symfony\Component\Routing\Attribute\Route;
 class FleetController extends AbstractController
 {
     #[Route('/fleet', name: 'app_fleet')]
-    public function index(): JsonResponse
+    public function index(EntityManagerInterface $entityManager): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/FleetController.php',
-        ]);
+        $fleets = $entityManager->getRepository(Fleet::class)->findAll();
+        dd($fleets);
+        return $this->json($fleets);
     }
 }
