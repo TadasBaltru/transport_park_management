@@ -16,4 +16,11 @@ class OrderController extends AbstractController
     {
         return $this->json($OrderRepository->SelectAll($entityManager));
     }
+    #[Route('/order/{id<\d+>}', name: 'app_order_one')]
+
+    public function findOne(OrderRepository $OrderRepository,EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        return $this->json($OrderRepository->SelectById($entityManager, $id));
+
+    }
 }

@@ -18,4 +18,10 @@ class TrailerController extends AbstractController
 
         return $this->SelectWithFleet($entityManager, 'App\Entity\Trailer');
     }
+    #[Route('/trailer/{id<\d+>}', name: 'app_trailer_one')]
+
+    public function findOne(EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        return $this->SelectWithEntityId($entityManager, 'App\Entity\Trailer', $id);
+    }
 }

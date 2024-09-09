@@ -12,10 +12,16 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class FleetController extends AbstractController
 {
-    use SelectQuery;
     #[Route('/fleet', name: 'app_fleet')]
     public function index(FleetRepository $fleetRepository, EntityManagerInterface $entityManager): JsonResponse
     {
         return $this->json($fleetRepository->SelectAll($entityManager));
     }
+    #[Route('/fleet/{id<\d+>}', name: 'app_fleet_one')]
+
+    public function findOne(FleetRepository $fleetRepository,EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        return $this->json($fleetRepository->SelectById($entityManager, $id));
+    }
+
 }

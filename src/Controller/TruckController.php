@@ -15,6 +15,10 @@ class TruckController extends AbstractController
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
         return $this->SelectWithFleet($entityManager, 'App\Entity\Truck');
-
+    }
+    #[Route('/truck/{id<\d+>}', name: 'app_trailer_one')]
+    public function findOne(EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        return $this->SelectWithEntityId($entityManager, 'App\Entity\Truck', $id);
     }
 }

@@ -19,7 +19,14 @@ class OrderRepository extends ServiceEntityRepository
 
     public function SelectAll(EntityManagerInterface $entityManager): array
     {
-        $orders = $entityManager->createQuery("SELECT ord, truck.id as truckId, truck.licenseNumber as truckLicenceNumber, trailer.id as trailerId, trailer.licenseNumber as truckLicenseNumber, fleet.id as fleetId FROM App\Entity\Order ord LEFT JOIN ord.trailer trailer LEFT JOIN ord.truck truck LEFT JOIN ord.fleet fleet  ORDER BY ord.id desc ");
+        $orders = $entityManager->createQuery("SELECT ord.id, ord.status, ord.createdAt, truck.id as truckId, truck.licenseNumber as truckLicenceNumber, trailer.id as trailerId, trailer.licenseNumber as truckLicenseNumber, fleet.id as fleetId, fleet_truck.id as fleetTruckId, fleet_truck.licenseNumber as fleetTruckLicenseNumber, fleet_trailer.id as fleetTrailerId, fleet_trailer.licenseNumber as fleetTrailerLicenseNumber  FROM App\Entity\Order ord LEFT JOIN ord.trailer trailer LEFT JOIN ord.truck truck LEFT JOIN ord.fleet fleet  LEFT JOIN fleet.truck fleet_truck LEFT JOIN fleet.trailer fleet_trailer ORDER BY ord.id desc ");
+
+        return $orders->getArrayResult();
+
+    }
+    public function SelectById(EntityManagerInterface $entityManager, int $id): array
+    {
+        $orders = $entityManager->createQuery("SELECT ord.id, ord.status, ord.createdAt, truck.id as truckId, truck.licenseNumber as truckLicenceNumber, trailer.id as trailerId, trailer.licenseNumber as truckLicenseNumber, fleet.id as fleetId, fleet_truck.id as fleetTruckId, fleet_truck.licenseNumber as fleetTruckLicenseNumber, fleet_trailer.id as fleetTrailerId, fleet_trailer.licenseNumber as fleetTrailerLicenseNumber  FROM App\Entity\Order ord LEFT JOIN ord.trailer trailer LEFT JOIN ord.truck truck LEFT JOIN ord.fleet fleet  LEFT JOIN fleet.truck fleet_truck LEFT JOIN fleet.trailer fleet_trailer where ord.id=$id ");
 
         return $orders->getArrayResult();
 
