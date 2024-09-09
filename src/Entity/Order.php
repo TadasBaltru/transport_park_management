@@ -13,15 +13,18 @@ class Order
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    #[ORM\Column]
+    private ?string $status = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'order_id')]
-    private ?Fleet $fleet_id = null;
+    private ?Fleet $fleet = null;
 
     #[ORM\ManyToOne(inversedBy: 'order_id')]
-    private ?Truck $truck_id = null;
+    private ?Truck $truck = null;
 
     #[ORM\ManyToOne(inversedBy: 'order_id')]
-    private ?Trailer $trailer_id = null;
+    private ?Trailer $trailer = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -31,38 +34,38 @@ class Order
         return $this->id;
     }
 
-    public function getFleetId(): ?Fleet
+    public function getFleet(): ?Fleet
     {
-        return $this->fleet_id;
+        return $this->fleet;
     }
 
-    public function setFleetId(?Fleet $fleet_id): static
+    public function setFleet(?Fleet $fleet): static
     {
-        $this->fleet_id = $fleet_id;
+        $this->fleet = $fleet;
 
         return $this;
     }
 
-    public function getTruckId(): ?Truck
+    public function getTruck(): ?Truck
     {
-        return $this->truck_id;
+        return $this->truck;
     }
 
-    public function setTruckId(?Truck $truck_id): static
+    public function setTruck(?Truck $truck): static
     {
-        $this->truck_id = $truck_id;
+        $this->truck = $truck;
 
         return $this;
     }
 
-    public function getTrailerId(): ?Trailer
+    public function getTrailer(): ?Trailer
     {
-        return $this->trailer_id;
+        return $this->trailer;
     }
 
-    public function setTrailerId(?Trailer $trailer_id): static
+    public function setTrailer(?Trailer $trailer): static
     {
-        $this->trailer_id = $trailer_id;
+        $this->trailer = $trailer;
 
         return $this;
     }
@@ -75,6 +78,17 @@ class Order
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(\DateTimeImmutable $createdAt): static
+    {
+        $this->status = $status;
 
         return $this;
     }

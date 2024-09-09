@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,28 +17,11 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    //    /**
-    //     * @return Order[] Returns an array of Order objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function SelectAll(EntityManagerInterface $entityManager): array
+    {
+        $orders = $entityManager->createQuery("SELECT ord, truck.id as truckId, truck.licenseNumber as truckLicenceNumber, trailer.id as trailerId, trailer.licenseNumber as truckLicenseNumber, fleet.id as fleetId FROM App\Entity\Order ord LEFT JOIN ord.trailer trailer LEFT JOIN ord.truck truck LEFT JOIN ord.fleet fleet  ORDER BY ord.id desc ");
 
-    //    public function findOneBySomeField($value): ?Order
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $orders->getArrayResult();
+
+    }
 }
