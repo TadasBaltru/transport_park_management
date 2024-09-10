@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -28,6 +30,15 @@ class Order
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+
+
+
+    public function __construct()
+    {
+        $this->orderStatusHistories = new ArrayCollection();
+        $this->histories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,10 +97,15 @@ class Order
         return $this->status;
     }
 
-    public function setStatus(\DateTimeImmutable $createdAt): static
+    public function setStatus(string $status): static
     {
         $this->status = $status;
 
         return $this;
     }
+
+
+
+
+
 }

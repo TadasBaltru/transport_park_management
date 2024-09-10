@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
+use App\Repository\HistoryRepository;
 use App\Repository\OrderRepository;
+use App\Repository\OrderStatusHistoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,4 +26,12 @@ class OrderController extends AbstractController
         return $this->json($OrderRepository->SelectById($entityManager, $id));
 
     }
+    #[Route('/order/history/{id<\d+>}', name: 'app_order_one')]
+
+    public function findHistory(HistoryRepository $OrderHistory,EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        return $this->json($OrderHistory->SpecificOrderHistory($entityManager, $id));
+
+    }
+
 }
