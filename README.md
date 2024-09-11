@@ -72,6 +72,12 @@ Make sure you have the following installed on your machine:
 
 If you see filled database, everything has been set up correctly!
 
+8. Start Symfony server:
+   ```bash
+   symfony server:start
+   ```
+
+
 ## Database Structure
 
 The system uses five tables for managing the transport park:
