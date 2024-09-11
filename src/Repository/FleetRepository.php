@@ -33,7 +33,7 @@ class FleetRepository extends ServiceEntityRepository
     }
     public function SelectById(EntityManagerInterface $entityManager, int $id): array
     {
-        $fleets = $entityManager->createQuery("SELECT t.id, t.status, trailer.id as trailerID, trailer.licenseNumber as trailerLicenseNumber ,truck.id as truckId, truck.licenseNumber as truckLicenseNumber  FROM App\Entity\Fleet t LEFT JOIN t.trailer trailer LEFT JOIN t.truck truck where t.id = :id")->setParameter('id', $id);
+        $fleets = $entityManager->createQuery("SELECT t.id, t.status, trailer.id as trailerId, trailer.licenseNumber as trailerLicenseNumber ,truck.id as truckId, truck.licenseNumber as truckLicenseNumber  FROM App\Entity\Fleet t LEFT JOIN t.trailer trailer LEFT JOIN t.truck truck where t.id = :id")->setParameter('id', $id);
         return $fleets->getArrayResult();
     }
 
