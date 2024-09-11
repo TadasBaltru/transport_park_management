@@ -87,7 +87,7 @@ The system uses five tables for managing the transport park:
         - `id`: (int, primary key, auto-increment)
         - `truck_id`: (int, foreign key to `Truck`, one-to-one relationship)
         - `trailer_id`: (int, foreign key to `Trailer`, one-to-one relationship)
-        - `status`: (string, e.g., `COMPLETED`, `IN_PROGRESS`, `PENDING`)
+        - `status`: (string, e.g., `Works`, `Free`, `Downtime`)
 
 2. **History**
     - Columns:
@@ -102,20 +102,20 @@ The system uses five tables for managing the transport park:
         - `truck_id`: (int, foreign key to `Truck`, many-to-one relationship)
         - `trailer_id`: (int, foreign key to `Trailer`, many-to-one relationship)
         - `fleet_id`: (int, foreign key to `Fleet`, many-to-one relationship)
-        - `status`: (string)
-        - `created_at`: (datetime)
+      - `status`: (string, e.g., `PENDING`, `IN_PROGRESS`, `COMPLETED`)
+      - `created_at`: (datetime)
 
 4. **Trailer**
     - Columns:
         - `id`: (int, primary key, auto-increment)
         - `license_number`: (varchar)
-        - `status`: (string)
+      - `status`: (string, e.g., `Works`, `Free`, `Downtime`)
 
 5. **Truck**
     - Columns:
         - `id`: (int, primary key, auto-increment)
         - `license_number`: (varchar)
-        - `status`: (string)
+      - `status`: (string, e.g., `Works`, `Free`, `Downtime`)
 
 ## API Endpoints
 
