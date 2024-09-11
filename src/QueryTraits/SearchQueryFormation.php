@@ -15,7 +15,8 @@ trait SearchQueryFormation
                 $nullQuery = FALSE;
             }
         }
-        $searchQuery = rtrim($searchQuery, " and ");
+       $searchQuery = str_replace("= 'null'", "IS NULL", $searchQuery);
+       $searchQuery = rtrim($searchQuery, " and ");
 
 
         return $nullQuery ? '' : $searchQuery;
